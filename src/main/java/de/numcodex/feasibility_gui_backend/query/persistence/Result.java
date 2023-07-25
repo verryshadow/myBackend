@@ -20,16 +20,16 @@ public class Result {
     @Column(name = "site_id", insertable = false, updatable = false, nullable = false)
     private Long siteId;
 
-    @JoinColumn(referencedColumnName = "id", name = "query_id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", name = "query_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Query query;
 
-    @JoinColumn(referencedColumnName = "id", name = "site_id", nullable = false)
+    @JoinColumn(referencedColumnName = "id", name = "site_id", nullable = true)
     @ManyToOne(fetch = FetchType.LAZY)
     private Site site;
 
     @Enumerated(EnumType.STRING)
-    @Type(type = "result_type")
+    @Type(type = "result_type")  //------------ TODO war nicht auskommentiert ----------------------------------------
     @Column(columnDefinition = "result_type")
     private ResultType resultType;
 

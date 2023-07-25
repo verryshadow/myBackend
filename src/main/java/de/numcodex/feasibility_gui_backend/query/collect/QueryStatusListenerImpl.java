@@ -46,7 +46,6 @@ public class QueryStatusListenerImpl implements QueryStatusListener {
             Optional<Integer> matchesInPopulation = (statusUpdate.status() == COMPLETED)
                     ? Optional.of(resolveMatchesInPopulation(statusUpdate.brokerQueryId(), statusUpdate.brokerSiteId(), statusUpdate.source()))
                     : Optional.empty();
-
             if (statusUpdate.status() == COMPLETED || statusUpdate.status() == FAILED) {
                 var internalQuery = lookupAssociatedBackendQuery(backendQueryId);
                 var siteName = resolveSiteName(statusUpdate.brokerSiteId(), statusUpdate.source());
@@ -122,4 +121,8 @@ public class QueryStatusListenerImpl implements QueryStatusListener {
                     .formatted(internalQuery.getId(), site.getSiteName()));
         }
     }
+  /*  public void mySaveResult(Result result) {
+        resultRepository.save(result);
+    }
+   */
 }

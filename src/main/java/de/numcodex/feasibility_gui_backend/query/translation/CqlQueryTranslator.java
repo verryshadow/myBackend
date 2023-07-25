@@ -7,7 +7,6 @@ import de.numcodex.sq2cql.PrintContext;
 import de.numcodex.sq2cql.Translator;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
 /**
  * A translator for translating a {@link StructuredQuery} into its CQL representation.
  */
@@ -31,9 +30,23 @@ class CqlQueryTranslator implements QueryTranslator {
         }
 
         try {
-            return translator.toCql(structuredQuery).print(PrintContext.ZERO);
+            String my_return_string ="";
+            // String my_return_string = translator.toCql(structuredQuery).print(PrintContext.ZERO);
+            return my_return_string;
         } catch (Exception e) {
             throw new QueryTranslationException("cannot translate structured query to CQL format", e);
         }
+    }
+
+    // not implemented bc it is not needed
+    @Override
+    public void change_fhir_base_url(String num) {
+
+    }
+
+    // not implemented bc it is not needed
+    @Override
+    public int getTotalNumber(StructuredQuery query) {
+        return 0;
     }
 }

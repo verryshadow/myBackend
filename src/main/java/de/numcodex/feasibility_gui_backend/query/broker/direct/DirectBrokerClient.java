@@ -32,7 +32,7 @@ public class DirectBrokerClient implements BrokerClient {
 
     private static final String FLARE_REQUEST_CONTENT_TYPE = "application/json";
     private static final String FLARE_RESPONSE_ACCEPT_CONTENT_TYPE = "CSQ";
-    private static final String FLARE_QUERY_ENDPOINT_URL = "/query/execute";
+    private static final String FLARE_QUERY_ENDPOINT_URL = "/query";
 
     private final WebClient webClient;
     private final List<QueryStatusListener> listeners;
@@ -68,7 +68,6 @@ public class DirectBrokerClient implements BrokerClient {
         var brokerQueryId = brokerQuery.getQueryId();
         brokerQueries.put(brokerQueryId, brokerQuery);
         brokerToBackendQueryIdMapping.put(brokerQueryId, backendQueryId);
-
         return brokerQueryId;
     }
 
@@ -86,7 +85,6 @@ public class DirectBrokerClient implements BrokerClient {
                         + " does not contain a query definition for the mandatory type: "
                         + STRUCTURED_QUERY
                 ));
-
         try {
             webClient.post()
                     .uri(FLARE_QUERY_ENDPOINT_URL)

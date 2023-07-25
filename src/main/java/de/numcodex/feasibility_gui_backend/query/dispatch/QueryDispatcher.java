@@ -87,7 +87,8 @@ public class QueryDispatcher {
     public void dispatchEnqueuedQuery(Long queryId) throws QueryDispatchException {
         var enqueuedQuery = getEnqueuedQuery(queryId);
         var deserializedQueryBody = getStructuredQueryFromEnqueuedQuery(enqueuedQuery);
-        var translatedQueryBodyFormats = translateQueryIntoTargetFormats(deserializedQueryBody);
+        var translatedQueryBodyFormats = translateQueryIntoTargetFormats(deserializedQueryBody); // is a HashMap with 3 Translations: Structures_Query, FHIR, CQL
+        // call it like this: translatedQueryBodyFormats.get(QueryMediaType.CQL)
 
         // TODO: error handling + asynchronous dispatch!
         try {
@@ -96,7 +97,7 @@ public class QueryDispatcher {
 
                 for (Entry<QueryMediaType, String> queryBodyFormats : translatedQueryBodyFormats.entrySet()) {
                     broker.addQueryDefinition(brokerQueryId, queryBodyFormats.getKey().getRepresentation(),
-                            queryBodyFormats.getValue());
+                            queryBodyFormats.getValue().toString());
                 }
                 broker.publishQuery(brokerQueryId);
                 persistDispatchedQuery(enqueuedQuery, brokerQueryId, broker.getBrokerType());
@@ -105,6 +106,18 @@ public class QueryDispatcher {
             }
         } catch (UnsupportedMediaTypeException | QueryNotFoundException | IOException e) {
             throw new QueryDispatchException("cannot publish query with id '%s'".formatted(queryId), e);
+        }
+    }
+
+    public int myGetResultInQueryDispatcher(long queryId) throws QueryDispatchException {
+        var enqueuedQuery = getEnqueuedQuery(queryId);
+        var deserializedQueryBody = getStructuredQueryFromEnqueuedQuery(enqueuedQuery);
+
+        try {
+            int res = queryTranslationComponent.getNumberOfPationtsInTranslation(deserializedQueryBody);
+            return res;
+        } catch (QueryTranslationException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -150,12 +163,19 @@ public class QueryDispatcher {
         }
     }
 
-    private Map<QueryMediaType, String> translateQueryIntoTargetFormats(StructuredQuery query)
-            throws QueryDispatchException {
+    private Map<QueryMediaType, String> translateQueryIntoTargetFormats(StructuredQuery query) throws QueryDispatchException {
         try {
-            return queryTranslationComponent.translate(query);
+            return queryTranslationComponent.translate(query); // ab hier wird übersetzt + da könnte ich auch mit query-sync auch abfragen
         } catch (QueryTranslationException e) {
             throw new QueryDispatchException("cannot translate enqueued query body into configured formats", e);
+        }
+    }
+
+    public void qd_change_fhir_base_url(String num) {
+        try {
+            queryTranslationComponent.qtc_change_fhir_base_url(num);
+        } catch (QueryTranslationException e) {
+            throw new RuntimeException(e);
         }
     }
 }

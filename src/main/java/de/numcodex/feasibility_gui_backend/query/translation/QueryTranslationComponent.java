@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -32,4 +33,24 @@ public class QueryTranslationComponent {
         }
         return translationResults;
     }
+
+    public int getNumberOfPationtsInTranslation(StructuredQuery query) throws QueryTranslationException {
+        int result_number = 0;
+        for (Entry<QueryMediaType, QueryTranslator> translatorMapping : translators.entrySet()) {
+            if (translatorMapping.getKey().toString().equals("FHIR")){
+                result_number = translatorMapping.getValue().getTotalNumber(query);
+            }
+        }
+
+        return result_number;
+    }
+    public void qtc_change_fhir_base_url(String num) throws QueryTranslationException {
+        for (Entry<QueryMediaType, QueryTranslator> translatorMapping : translators.entrySet()) {
+            if (translatorMapping.getKey().toString().equals("FHIR")){
+                translatorMapping.getValue().change_fhir_base_url(num);
+            }
+        }
+    }
+
+
 }

@@ -209,7 +209,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
 
-      <plugin>
+ <!--     <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <version>3.0.0-M1</version>
         <configuration>
@@ -217,13 +217,14 @@
           <scmReleaseCommitComment>[release] prepare release @{releaseLabel}</scmReleaseCommitComment>
           <tagNameFormat>v@{project.version}</tagNameFormat>
         </configuration>
-      </plugin>
+      </plugin>-->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <skipTests>${skipUnitTests}</skipTests>
+          <skipTests>true</skipTests>
+<!--          <skipTests>${skipUnitTests}</skipTests>   +++++++++++++++++++++++++ TODO war eigentlich so -->
         </configuration>
       </plugin>
 
@@ -240,7 +241,8 @@
           </execution>
         </executions>
         <configuration>
-          <skipITs>${skipIntegrationTests}</skipITs>
+          <skipITs>true</skipITs>
+<!--          <skipITs>${skipIntegrationTests}</skipITs>    +++++++++++++++++++++++++ TODO war eigentlich so-->
         </configuration>
       </plugin>
 

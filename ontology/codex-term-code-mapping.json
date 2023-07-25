@@ -50573,31 +50573,15 @@
     },
     {
         "fhirResourceType": "Procedure",
-        "fixedCriteria": [
-            {
-                "fhirPath": "status",
-                "searchParameter": "status",
-                "type": "code",
-                "value": [
-                    {
-                        "code": "completed",
-                        "display": "completed",
-                        "system": "http://hl7.org/fhir/event-status"
-                    },
-                    {
-                        "code": "in-progress",
-                        "display": "in-progress",
-                        "system": "http://hl7.org/fhir/event-status"
-                    }
-                ]
-            }
-        ],
+        "fixedCriteria": [],
         "key": {
             "code": "127788007",
             "display": "Apheresis (procedure)",
             "system": "http://snomed.info/sct"
         },
-        "termCodeSearchParameter": "code"
+        "termCodeSearchParameter": "code",
+        "valueFhirPath": "valueConcept",
+        "valueSearchParameter": "value-concept"
     },
     {
         "fhirResourceType": "Procedure",
@@ -56485,7 +56469,7 @@
                 "type": "code",
                 "value": [
                     {
-                        "code": "available",
+                        "code": "active",
                         "display": "Available",
                         "system": "http://hl7.org/fhir/ValueSet/specimen-status"
                     }

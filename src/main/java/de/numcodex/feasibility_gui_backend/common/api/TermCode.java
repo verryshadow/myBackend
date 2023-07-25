@@ -1,10 +1,12 @@
 package de.numcodex.feasibility_gui_backend.common.api;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.boot.SpringApplication;
 
 @Data
 @JsonInclude(Include.NON_NULL)

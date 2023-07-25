@@ -18,4 +18,8 @@ public interface QueryTranslator {
      */
     String translate(StructuredQuery query) throws QueryTranslationException
     ;
+
+    int getTotalNumber(StructuredQuery query);
+
+    void change_fhir_base_url(String num);
 }

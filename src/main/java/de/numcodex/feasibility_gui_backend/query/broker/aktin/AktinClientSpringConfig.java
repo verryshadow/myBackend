@@ -35,7 +35,7 @@ public class AktinClientSpringConfig {
     	BrokerAdmin2 client = new BrokerAdmin2(URI.create(brokerBaseUrl));
     	// when websocket is disconnected, automatically reconnect. delay 10 seconds between failures.
     	client.addListener(ReconnectingListener.forAdmin(client, 10*1000, -1));
-    	client.setAuthFilter(new ApiKeyAuthFilter(brokerApiKey));
+    	// client.setAuthFilter(new ApiKeyAuthFilter(brokerApiKey));
     	return new AktinBrokerClient(client);
     }
 

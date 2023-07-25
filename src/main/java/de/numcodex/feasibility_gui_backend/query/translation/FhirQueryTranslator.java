@@ -19,7 +19,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 class FhirQueryTranslator implements QueryTranslator {
 
-    private static final String FLARE_QUERY_TRANSLATE_ENDPOINT_PATH = "/query/translate";
+    private static final String FLARE_QUERY_TRANSLATE_ENDPOINT_PATH = "/query-translate";
+    private static final String FLARE_QUERY_TRANSLATE_ENDPOINT_PATH2 = "/query-sync";
+
+    private static final String FLARE_QUERY_CHANGE_FHIR_SERVER_BASE_URL = "/change_server_base_url/";
     private static final String FLARE_QUERY_TRANSLATE_CONTENT_TYPE = "application/json";
     private static final String FLARE_QUERY_TRANSLATE_ACCEPT = "CSQ";
 
@@ -35,6 +38,7 @@ class FhirQueryTranslator implements QueryTranslator {
 
     @Override
     public String translate(StructuredQuery query) throws QueryTranslationException {
+
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.putAll(Map.of(
                 // TODO: Resolve this with the Flare team. This is NOT the header to be used.
@@ -46,11 +50,53 @@ class FhirQueryTranslator implements QueryTranslator {
 
         try {
             HttpEntity<String> request = new HttpEntity<>(jsonUtil.writeValueAsString(query), requestHeaders);
-            return client.postForObject(FLARE_QUERY_TRANSLATE_ENDPOINT_PATH, request, String.class);
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println(request);
+            // <{"version":"http://to_be_decided.com/draft-1/schema#","inclusionCriteria":[[{"termCodes":[{"code":"76689-9","system":"http://loinc.org","display":"Sex assigned at birth"}],"valueFilter":{"type":"concept","selectedConcepts":[{"code":"female","system":"http://hl7.org/fhir/administrative-gender","display":"Female"}]}}]]},[Content-Type:"application/json", Accept-Encoding:"CSQ"]>
+            // <{"version":"http://to_be_decided.com/draft-1/schema#","inclusionCriteria":[[{"termCodes":[{"code":"76689-9","system":"http://loinc.org","display":"Sex assigned at birth"}],"valueFilter":{"type":"concept","selectedConcepts":[{"code":"female","system":"http://hl7.org/fhir/administrative-gender","display":"Female"}]}}]]},[Content-Type:"application/json", Accept-Encoding:"CSQ"]>
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            System.out.println("jooooooooooo");
+            String response_translate = client.postForObject(FLARE_QUERY_TRANSLATE_ENDPOINT_PATH, request, String.class);
+            return response_translate;
         } catch (JsonProcessingException e) {
             throw new QueryTranslationException("cannot encode structured query as JSON", e);
         } catch (RestClientException e) {
             throw new QueryTranslationException("cannot translate structured query in FHIR search format using Flare", e);
         }
     }
+
+    /*
+    return a string with the number of patients
+     */
+    public int getTotalNumber(StructuredQuery query) {
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.putAll(Map.of(
+                HttpHeaders.ACCEPT_ENCODING, List.of(FLARE_QUERY_TRANSLATE_ACCEPT),
+                HttpHeaders.CONTENT_TYPE, List.of(FLARE_QUERY_TRANSLATE_CONTENT_TYPE)
+        ));
+
+        HttpEntity<String> request = null;
+        try {
+            request = new HttpEntity<>(jsonUtil.writeValueAsString(query), requestHeaders);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        String response_sync = client.postForObject(FLARE_QUERY_TRANSLATE_ENDPOINT_PATH2, request, String.class);
+        int response_sync_int = Integer.parseInt(response_sync);
+        return response_sync_int;
+    }
+
+    public void change_fhir_base_url(String num) {
+        String url = FLARE_QUERY_CHANGE_FHIR_SERVER_BASE_URL + num;
+        client.getForEntity(url, String.class);
+    }
+
 }

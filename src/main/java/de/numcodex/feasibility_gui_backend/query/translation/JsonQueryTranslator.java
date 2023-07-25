@@ -19,9 +19,23 @@ class JsonQueryTranslator implements QueryTranslator {
     @Override
     public String translate(StructuredQuery query) throws QueryTranslationException {
         try {
-            return jsonUtil.writeValueAsString(query);
+            String my_result = jsonUtil.writeValueAsString(query);
+            return my_result;
         } catch (JsonProcessingException e) {
             throw new QueryTranslationException("cannot encode structured query as JSON", e);
         }
+    }
+
+    // not implemented bc it is not needed
+    @Override
+    public int getTotalNumber(StructuredQuery query) {
+        return 0;
+    }
+
+    // not implemented bc it is not needed
+
+    @Override
+    public void change_fhir_base_url(String num) {
+
     }
 }

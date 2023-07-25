@@ -13,4 +13,6 @@ public interface QueryStatusListener {
      * @param queryStatusUpdate Describes the update for a broker specific query.
      */
     void onClientUpdate(Long backendQueryId, QueryStatusUpdate queryStatusUpdate);
+
+    //void mySaveResult(Result result);
 }

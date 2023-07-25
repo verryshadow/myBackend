@@ -1,0 +1,10 @@
+Connect to the server: psql postgresql://codex-postgres:codex-password@localhost:5432/codex_ui
+
+
+Maybe important commands in the sql terminal:
+- listing all tables: /dt
+- list view: \dv
+- exit: \q
+
+Queries:
+- Insert new Site (this needs to be done before it is possible to query it): INSERT INTO site VALUES (1, 'site1');

@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public class QueryResult {
     private int totalNumberOfPatients;
+    private String totalNumberOfPatientsRange;
     private Long queryId;
     private List<QueryResultLine> resultLines;
 }

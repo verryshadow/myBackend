@@ -63,7 +63,7 @@ public class FhirQueryTranslatorIT {
     // kind in order to assume that the server is up rendering the container ready.
     @Container
     private final GenericContainer<?> flare = new GenericContainer<>(DockerImageName.parse("ghcr.io/num-codex/codex-flare:0.0.8"))
-            .withExposedPorts(5000)
+            .withExposedPorts(5111)
             .withFileSystemBind("ontology/codex-code-tree.json", "/opt/flare/src/query_parser/codex/codex-code-tree.json", READ_ONLY)
             .withFileSystemBind("ontology/codex-term-code-mapping.json", "/opt/flare/src/query_parser/codex/codex-mapping.json", READ_ONLY)
             .waitingFor(Wait.forHttp("/")

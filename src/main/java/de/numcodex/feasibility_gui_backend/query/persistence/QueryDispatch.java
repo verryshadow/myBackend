@@ -2,7 +2,6 @@ package de.numcodex.feasibility_gui_backend.query.persistence;
 
 import lombok.Data;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -34,7 +33,7 @@ public class QueryDispatch {
         private String externalId;
 
         @Enumerated(EnumType.STRING)
-        @Type(type = "broker_type")
+        @Type(type = "broker_type") // ------------ TODO war nicht auskommentiert ----------------------------------------
         @Column(name = "broker_type")
         private BrokerClientType brokerType;
     }

@@ -18,7 +18,10 @@ import java.util.stream.Stream;
 public class TerminologyService {
 
   private  String uiProfilePath;
-  private static final List<String> SORTED_CATEGORIES = List.of("Einwilligung", "Biobank", "Diagnose", "Fall", "Laborbefund", "Medikation", "Person", "Prozedur", "GECCO");
+  // private static final List<String> SORTED_CATEGORIES = List.of("Einwilligung", "Biobank", "Diagnose", "Fall", "Laborbefund", "Medikation", "Person", "Prozedur", "GECCO");
+
+  // private static final List<String> SORTED_CATEGORIES = List.of("Einwilligung", "GECCO", "Demographie");
+  private static final List<String> SORTED_CATEGORIES = List.of("Andere", "Demography", "Laborwerte", "Therapie");
   private Map<UUID, TerminologyEntry> terminologyEntries = new HashMap<>();
   private List<CategoryEntry> categoryEntries = new ArrayList<>();
   private Map<UUID, TerminologyEntry> terminologyEntriesWithOnlyDirectChildren = new HashMap<>();
@@ -57,9 +60,6 @@ public class TerminologyService {
   }
 
   private Set<String> getFilePathsUiProfiles() {
-    System.out.println("####################");
-    System.out.println(uiProfilePath);
-
     return Stream.of(
         Objects.requireNonNull(new File(uiProfilePath).listFiles()))
         .filter(file -> !file.isDirectory())
@@ -68,8 +68,6 @@ public class TerminologyService {
   }
 
   private void generateTerminologyEntriesWithOnlyDirectChildren(TerminologyEntry terminologyTree) {
-
-
     var entryWithOnlyDirectChildren = TerminologyEntry.copyWithDirectChildren(terminologyTree);
     terminologyEntriesWithOnlyDirectChildren
         .put(entryWithOnlyDirectChildren.getId(), entryWithOnlyDirectChildren);
@@ -118,29 +116,9 @@ public class TerminologyService {
       for (var selectableEntries : selectableEntriesByCategory.values()) {
         allSelectableEntries.addAll(selectableEntries);
       }
-      System.out.println(allSelectableEntries.size());
       return allSelectableEntries.stream()
           .filter((terminologyEntry -> matchesQuery(query, terminologyEntry))).sorted((Comparator
               .comparingInt(val -> val.getDisplay().length()))).limit(20)
-          .collect(Collectors.toList());
-    }
-  }
-
-  public List<TerminologyEntry> getSelectableEntries2(String query, UUID categoryId) {
-    if (categoryId != null) {
-      return selectableEntriesByCategory.get(categoryId).stream()
-          .sorted(Comparator
-              .comparingDouble((TerminologyEntry val) -> diceCoefficientOptimized(val.getDisplay(), query)).reversed()).limit(20)
-          .collect(Collectors.toList());
-    } else {
-      Set<TerminologyEntry> allSelectableEntries = new HashSet<>();
-      for (var selectableEntries : selectableEntriesByCategory.values()) {
-        allSelectableEntries.addAll(selectableEntries);
-      }
-      System.out.println(allSelectableEntries.size());
-      return allSelectableEntries.stream()
-          .sorted(Comparator
-              .comparingDouble((TerminologyEntry val) -> diceCoefficientOptimized(val.getDisplay(), query)).reversed()).limit(20)
           .collect(Collectors.toList());
     }
   }

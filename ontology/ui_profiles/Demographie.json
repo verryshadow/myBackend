@@ -39,6 +39,43 @@
     },
     {
       "children": [],
+      "display": "Tobacco Use Status",
+      "id": "72cff0ee-c061-4482-ac62-121f23ccdaa8",
+      "leaf": true,
+      "selectable": true,
+      "termCode": {
+        "code": "77777-0",
+        "display": "Tobacco Use Status",
+        "system": "http://verenas-example.at"
+      },
+      "timeRestrictionAllowed": false,
+      "valueDefinitions": [
+        {
+          "allowedUnits": [],
+          "precision": 1,
+          "selectableConcepts": [
+            {
+              "code": "yes",
+              "display": "Yes",
+              "system": "http://verenas-example.at"
+            },
+            {
+              "code": "no",
+              "display": "No",
+              "system": "http://verenas-example.at"
+            },
+            {
+              "code": "unknown",
+              "display": "Unknown",
+              "system": "http://verenas-example.at"
+            }
+          ],
+          "type": "concept"
+        }
+      ]
+    },
+    {
+      "children": [],
       "display": "Ethnic group (ethnic group)",
       "id": "69f58b2e-a131-46b1-a63f-1e6a1e845a78",
       "leaf": true,
@@ -1410,6 +1447,32 @@
             {
               "code": "kg",
               "display": "kg"
+            }
+          ],
+          "precision": 1,
+          "selectableConcepts": [],
+          "type": "quantity"
+        }
+      ]
+    },
+    {
+      "children": [],
+      "display": "Warfarin Dose",
+      "id": "5810960c-fe46-4fcf-a959-8c96bb9ef971",
+      "leaf": true,
+      "selectable": true,
+      "termCode": {
+        "code": "33333-0",
+        "display": "Warfarin Dose",
+        "system": "http://verenas-example.at"
+      },
+      "timeRestrictionAllowed": false,
+      "valueDefinitions": [
+        {
+          "allowedUnits": [
+            {
+              "code": "mg",
+              "display": "mg"
             }
           ],
           "precision": 1,

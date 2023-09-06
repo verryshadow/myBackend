@@ -52684,6 +52684,18 @@
         "valueFhirPath": "valueQuantity",
         "valueSearchParameter": "value-quantity"
     },
+  {
+    "fhirResourceType": "Observation",
+    "fixedCriteria": [],
+    "key": {
+      "code": "33333-0",
+      "display": "Warfarin Dose",
+      "system": "http://verenas-example.at"
+    },
+    "termCodeSearchParameter": "code",
+    "valueFhirPath": "valueQuantity",
+    "valueSearchParameter": "value-quantity"
+  },
     {
         "fhirResourceType": "MedicationStatement",
         "fixedCriteria": [
@@ -58774,6 +58786,18 @@
             "code": "82810-3",
             "display": "Pregnancy status",
             "system": "http://loinc.org"
+        },
+        "termCodeSearchParameter": "code",
+        "valueFhirPath": "valueConcept",
+        "valueSearchParameter": "value-concept"
+    },
+    {
+        "fhirResourceType": "Observation",
+        "fixedCriteria": [],
+        "key": {
+            "code": "77777-0",
+            "display": "Tobacco Use Status",
+            "system": "http://verenas-example.at"
         },
         "termCodeSearchParameter": "code",
         "valueFhirPath": "valueConcept",

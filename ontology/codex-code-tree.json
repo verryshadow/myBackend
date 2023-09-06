@@ -19034,6 +19034,13 @@
                         "display": "Body weight (observable entity)",
                         "system": "http://snomed.info/sct"
                     }
+                }, {
+                    "children": [],
+                    "termCode": {
+                        "code": "33333-0",
+                        "display": "Warfarin Dose",
+                        "system": "http://verenas-example.at"
+                    }
                 },
                 {
                     "children": [],
@@ -19049,6 +19056,14 @@
                         "code": "82810-3",
                         "display": "Pregnancy status",
                         "system": "http://loinc.org"
+                    }
+                },
+                {
+                    "children": [],
+                    "termCode": {
+                        "code": "77777-0",
+                        "display": "Tobacco Use Status",
+                        "system": "http://verenas-example.at"
                     }
                 }
             ],

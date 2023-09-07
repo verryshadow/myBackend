@@ -83,9 +83,7 @@ public class QueryHandlerService {
             queryResult.setResultLines(resultLines);
         }
 
-        System.out.println("this is my queryResult");
-        System.out.println(queryResult);
-        System.out.println("queryId:" + queryId);
+        System.out.println("Query ID:" + queryId);
         return queryResult;
     }
 

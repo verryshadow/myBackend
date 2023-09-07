@@ -23,8 +23,8 @@ class FhirQueryTranslator implements QueryTranslator {
     private static final String FLARE_QUERY_TRANSLATE_ENDPOINT_PATH2 = "/query-sync";
 
     private static final String FLARE_QUERY_CHANGE_FHIR_SERVER_BASE_URL = "/change_server_base_url/";
-    private static final String FLARE_QUERY_TRANSLATE_CONTENT_TYPE = "application/json";
-    private static final String FLARE_QUERY_TRANSLATE_ACCEPT = "CSQ";
+    private static final String FLARE_QUERY_TRANSLATE_CONTENT_TYPE = "CODEX/json";
+    private static final String FLARE_QUERY_TRANSLATE_ACCEPT = "Result";
 
     // TODO: this one should be replaced with a WebClient instance for asynchronous translation support.
     //       However, this will require changes to the interface as well. Additional changes will propagate
@@ -41,30 +41,18 @@ class FhirQueryTranslator implements QueryTranslator {
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.putAll(Map.of(
-                // TODO: Resolve this with the Flare team. This is NOT the header to be used.
+                // Done: Resolve this with the Flare team. This is NOT the header to be used.
                 //       The accept encoding header should not change the content itself.
                 //       Thus, it's mainly used for compression algorithms.
-                HttpHeaders.ACCEPT_ENCODING, List.of(FLARE_QUERY_TRANSLATE_ACCEPT),
+                HttpHeaders.ACCEPT, List.of(FLARE_QUERY_TRANSLATE_ACCEPT),
                 HttpHeaders.CONTENT_TYPE, List.of(FLARE_QUERY_TRANSLATE_CONTENT_TYPE)
         ));
 
         try {
             HttpEntity<String> request = new HttpEntity<>(jsonUtil.writeValueAsString(query), requestHeaders);
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println(request);
             // <{"version":"http://to_be_decided.com/draft-1/schema#","inclusionCriteria":[[{"termCodes":[{"code":"76689-9","system":"http://loinc.org","display":"Sex assigned at birth"}],"valueFilter":{"type":"concept","selectedConcepts":[{"code":"female","system":"http://hl7.org/fhir/administrative-gender","display":"Female"}]}}]]},[Content-Type:"application/json", Accept-Encoding:"CSQ"]>
             // <{"version":"http://to_be_decided.com/draft-1/schema#","inclusionCriteria":[[{"termCodes":[{"code":"76689-9","system":"http://loinc.org","display":"Sex assigned at birth"}],"valueFilter":{"type":"concept","selectedConcepts":[{"code":"female","system":"http://hl7.org/fhir/administrative-gender","display":"Female"}]}}]]},[Content-Type:"application/json", Accept-Encoding:"CSQ"]>
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            System.out.println("jooooooooooo");
-            String response_translate = client.postForObject(FLARE_QUERY_TRANSLATE_ENDPOINT_PATH, request, String.class);
-            return response_translate;
+            return client.postForObject(FLARE_QUERY_TRANSLATE_ENDPOINT_PATH, request, String.class);
         } catch (JsonProcessingException e) {
             throw new QueryTranslationException("cannot encode structured query as JSON", e);
         } catch (RestClientException e) {
@@ -79,7 +67,7 @@ class FhirQueryTranslator implements QueryTranslator {
 
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.putAll(Map.of(
-                HttpHeaders.ACCEPT_ENCODING, List.of(FLARE_QUERY_TRANSLATE_ACCEPT),
+                HttpHeaders.ACCEPT, List.of(FLARE_QUERY_TRANSLATE_ACCEPT),
                 HttpHeaders.CONTENT_TYPE, List.of(FLARE_QUERY_TRANSLATE_CONTENT_TYPE)
         ));
 

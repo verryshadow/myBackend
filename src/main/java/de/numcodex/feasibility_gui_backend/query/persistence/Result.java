@@ -29,7 +29,7 @@ public class Result {
     private Site site;
 
     @Enumerated(EnumType.STRING)
-    @Type(type = "result_type")  //------------ TODO war nicht auskommentiert ----------------------------------------
+    @Type(type = "result_type")
     @Column(columnDefinition = "result_type")
     private ResultType resultType;
 

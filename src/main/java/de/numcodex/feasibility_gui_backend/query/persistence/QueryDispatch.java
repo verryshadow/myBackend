@@ -33,7 +33,7 @@ public class QueryDispatch {
         private String externalId;
 
         @Enumerated(EnumType.STRING)
-        @Type(type = "broker_type") // ------------ TODO war nicht auskommentiert ----------------------------------------
+        @Type(type = "broker_type")
         @Column(name = "broker_type")
         private BrokerClientType brokerType;
     }

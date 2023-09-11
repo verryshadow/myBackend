@@ -42,8 +42,7 @@ public class QueryHandlerService {
 
     public int getMyResult(long queryId) {
         try {
-            int res = 0;
-            res = queryDispatcher.myGetResultInQueryDispatcher(queryId);
+            int res = queryDispatcher.myGetResultInQueryDispatcher(queryId);
             return res;
         } catch (QueryDispatchException e) {
             throw new RuntimeException(e);
@@ -76,14 +75,14 @@ public class QueryHandlerService {
                 .build();
 
         if(resultLines.stream().anyMatch(queryResultLine -> queryResultLine.getNumberOfPatients() < (lowerboundarypatientresult))) {
-            resultLines.stream().forEach((queryResultLine) -> queryResultLine.setNumberOfPatients(0));
+            resultLines.forEach((queryResultLine) -> queryResultLine.setNumberOfPatients(0));
             queryResult.setResultLines(resultLines);
         } else {
-            resultLines.stream().forEach((queryResultLine) -> queryResultLine.setNumberOfPatients(queryResultLine.getNumberOfPatients()-(queryResultLine.getNumberOfPatients()%10)));
+            resultLines.forEach((queryResultLine) -> queryResultLine.setNumberOfPatients(queryResultLine.getNumberOfPatients()-(queryResultLine.getNumberOfPatients()%10)));
             queryResult.setResultLines(resultLines);
         }
 
-        System.out.println("Query ID:" + queryId);
+        System.out.println("Query ID: " + queryId);
         return queryResult;
     }
 

@@ -121,8 +121,4 @@ public class QueryStatusListenerImpl implements QueryStatusListener {
                     .formatted(internalQuery.getId(), site.getSiteName()));
         }
     }
-  /*  public void mySaveResult(Result result) {
-        resultRepository.save(result);
-    }
-   */
 }

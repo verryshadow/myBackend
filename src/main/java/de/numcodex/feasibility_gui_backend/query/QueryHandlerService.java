@@ -42,8 +42,7 @@ public class QueryHandlerService {
 
     public int getMyResult(long queryId) {
         try {
-            int res = queryDispatcher.myGetResultInQueryDispatcher(queryId);
-            return res;
+            return queryDispatcher.myGetResultInQueryDispatcher(queryId);
         } catch (QueryDispatchException e) {
             throw new RuntimeException(e);
         }

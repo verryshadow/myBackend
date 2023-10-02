@@ -28,7 +28,7 @@ public class QueryTranslationComponent {
      */
     public Map<QueryMediaType, String> translate(StructuredQuery query) throws QueryTranslationException {
         var translationResults = new HashMap<QueryMediaType, String>();
-        for (Entry<QueryMediaType, QueryTranslator> translatorMapping : translators.entrySet()) {
+        for (Entry<QueryMediaType, QueryTranslator> translatorMapping : translators.entrySet()) { // translate it to CQL, FHIR and Structured Query
             translationResults.put(translatorMapping.getKey(), translatorMapping.getValue().translate(query));
         }
         return translationResults;

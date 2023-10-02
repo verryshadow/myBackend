@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 @Service
 public class TerminologyService {
 
-  private  String uiProfilePath;
+  private final String uiProfilePath;
   // private static final List<String> SORTED_CATEGORIES = List.of("Einwilligung", "Biobank", "Diagnose", "Fall", "Laborbefund", "Medikation", "Person", "Prozedur", "GECCO");
 
   // private static final List<String> SORTED_CATEGORIES = List.of("Einwilligung", "GECCO", "Demographie");
